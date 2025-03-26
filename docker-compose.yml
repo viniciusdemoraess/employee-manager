@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio
+    container_name: minio
+    environment:
+      MINIO_ACCESS_KEY: minioaccesskey
+      MINIO_SECRET_KEY: miniosecretkey
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data
+    volumes:
+      - minio_data:/data
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: servidoresdb
+    ports:
+      - "5432:5432"
+      
+volumes:
+  minio_data:
+    driver: local
