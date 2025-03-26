@@ -2,12 +2,19 @@ package com.seplag.employee_manager.domain.entity;
 
 import java.io.Serial;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "pessoa")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa {
 
     @Serial
@@ -44,5 +52,11 @@ public class Pessoa {
 
     @Column(name = "pes_pai", length = 200)
     private String pai;
+
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    private FotoPessoa fotoPessoa;
+
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PessoaEndereco> pessoaEnderecos = new ArrayList<>();
     
 }
