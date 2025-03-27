@@ -27,12 +27,12 @@ public class AuthenticationService {
         final var user = this.userRepository.findByEmail(input.getEmail())
             .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
-        this.authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                input.getEmail(),
-                input.getPassword()
-            )
-        );
+        // this.authenticationManager.authenticate(
+        //     new UsernamePasswordAuthenticationToken(
+        //         input.getEmail(),
+        //         input.getPassword()
+        //     )
+        // );
 
         final String jwtToken = this.jwtService.generateToken(user);
 
