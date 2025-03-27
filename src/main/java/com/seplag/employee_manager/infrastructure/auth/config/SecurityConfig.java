@@ -4,11 +4,9 @@ package com.seplag.employee_manager.infrastructure.auth.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seplag.employee_manager.application.filter.JwtAuthenticationFilter;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
 
-// import br.gov.mt.fapemat.xsig.application.filter.ApiKeyAuthenticationFilter;
-// import br.gov.mt.fapemat.xsig.application.filter.ApiKeyUtils;
-// import br.gov.mt.fapemat.xsig.application.filter.JwtAuthenticationFilter;
+import java.util.List;
 
 
 import org.springframework.context.annotation.Bean;
@@ -19,6 +17,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -27,6 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -41,30 +42,8 @@ public class SecurityConfig {
         "/instances/**",
         "/wallboard/**",
         "/applications/**",
-        "/api/servidores**"
+        "/servidores**"
     };
-
-    // private static final String[] PUBLIC_USER_ENDPOINTS = {
-    //     "/users/me"
-    // };
-
-    private static final String[] ADMIN_USER_ENDPOINTS = {
-        "/users/**",
-        "/perfis/**"
-    };
-
-    // private static final String[] SIGFAPEMAT_ADMIN_USER_ENDPOINTS = {
-    //     "/automations/**",
-    //     "/bolsistas/**",
-    //     "/editais/**",
-    //     "/foos/**"
-    // };
-
-    // private static final String[] SIGADOC_ADMIN_USER_ENDPOINTS = {
-    //     "/processos/**",
-    //     "/bolsistas/*/documents/*",
-    //     "editais/*/oficio/**"
-    // };
 
     private final AuthenticationProvider authenticationProvider;
 
@@ -72,15 +51,9 @@ public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
 
-    public SecurityConfig(
-        final JwtAuthenticationFilter jwtAuthenticationFilter,
-        final AuthenticationProvider authenticationProvider,
-        final ObjectMapper objectMapper
-    ) {
-        this.authenticationProvider = authenticationProvider;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.objectMapper = objectMapper;
-    }
+    private final UserDetailsService userDetailsService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
@@ -89,7 +62,6 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                 authorize ->
                     authorize.requestMatchers(AUTHENTICATION_NOT_REQUIRED).permitAll()
-                        .requestMatchers(ADMIN_USER_ENDPOINTS).hasAuthority("ADMINISTRADOR")
                         .anyRequest()
                         .authenticated()
             ).sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -103,10 +75,12 @@ public class SecurityConfig {
         final CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-            "http://localhost:8080",
-            "http://localhost:4200"
+            "http://localhost:8080"
         ));
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true); 
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
