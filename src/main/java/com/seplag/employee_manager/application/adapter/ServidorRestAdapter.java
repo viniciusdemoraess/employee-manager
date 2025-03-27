@@ -12,17 +12,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seplag.employee_manager.domain.service.ServidorService;
+import com.seplag.employee_manager.application.io.ServidorEfetivoRequest;
+import com.seplag.employee_manager.domain.entity.ServidorEfetivo;
+import com.seplag.employee_manager.domain.service.ServidorEfetivoService;
+
+import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/servidores")
+@RequestMapping("/servidores")
+@AllArgsConstructor
 public class ServidorRestAdapter {
 
-    private final ServidorService servidorService;
+    private final ServidorEfetivoService efetivoService;
+    // private final ServidorTemporarioService temporarioService;
 
-    public ServidorRestAdapter(ServidorService servidorService) {
-        this.servidorService = servidorService;
-    }
 
     @GetMapping
     public ResponseEntity getServidor() {
@@ -30,23 +33,23 @@ public class ServidorRestAdapter {
     }
 
 
-    // @PostMapping
-    // public ResponseEntity<Servidor> createServidor(@RequestBody Servidor servidor) {
-    //     return ResponseEntity.status(HttpStatus.CREATED).body(servidorService.create(servidor));
+    @PostMapping("/efetivo")
+    public ResponseEntity<ServidorEfetivo> createServidorEfetivo(@RequestBody ServidorEfetivoRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(efetivoService.create(request));
+    }
+
+    // @PostMapping("/temporario")
+    // public ResponseEntity<ServidorTemporario> createServidorTemporario(@RequestBody ServidorTemporarioRequest request) {
+    //     return ResponseEntity.status(HttpStatus.CREATED).body(temporarioService.create(request));
     // }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Servidor> updateServidor(@PathVariable Long id, @RequestBody Servidor servidor) {
-    //     return ResponseEntity.ok(servidorService.update(id, servidor));
-    // }
+    @GetMapping("/efetivo/{id}")
+    public ResponseEntity<ServidorEfetivo> getServidorEfetivo(@PathVariable Long id) {
+        return ResponseEntity.ok(efetivoService.getById(id));
+    }
 
-    // @GetMapping("/{id}")
-    // public ResponseEntity<Servidor> getServidor(@PathVariable Long id) {
-    //     return ResponseEntity.ok(servidorService.get(id));
-    // }
-
-    // @GetMapping("/unidade/{unidId}")
-    // public ResponseEntity<List<Servidor>> getServidoresByUnidade(@PathVariable Long unidId) {
-    //     return ResponseEntity.ok(servidorService.getByUnidade(unidId));
+    // @GetMapping("/temporario/{id}")
+    // public ResponseEntity<ServidorTemporario> getServidorTemporario(@PathVariable Long id) {
+    //     return ResponseEntity.ok(temporarioService.getById(id));
     // }
 }
