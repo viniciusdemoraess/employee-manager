@@ -14,9 +14,11 @@ public interface ServidorEfetivoMapper {
 
     @Mapping(target = "id", ignore = true) 
     @Mapping(target = "matricula", source = "request.matricula")
-    // @Mapping(target = "pessoa", source = "request.pessoa") // Mapeia a Pessoa
-    // @Mapping(target = "endereco", source = "request.endereco") // Mapeia o Endereco
-    // @Mapping(target = "lotacao", source = "request.lotacao") // Mapeia a Lotacao
+    @Mapping(target = "nome", source = "request.nome")
+    @Mapping(target = "dataNascimento", source = "request.dataNascimento")
+    @Mapping(target = "sexo", source = "request.sexo")
+    @Mapping(target = "mae", source = "request.mae")
+    @Mapping(target = "pai", source = "request.pai")
     ServidorEfetivo toEntity(ServidorEfetivoRequest request);
 
     @Mapping(target = "id", ignore = true)
