@@ -19,26 +19,39 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     private final UserRepository userRepository;
-
-    private final AuthenticationManager authenticationManager;
+    
 
     public LoginResponse authenticate(final LoginRequest input) {
 
         final var user = this.userRepository.findByEmail(input.getEmail())
             .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
-        // this.authenticationManager.authenticate(
-        //     new UsernamePasswordAuthenticationToken(
-        //         input.getEmail(),
-        //         input.getPassword()
-        //     )
-        // );
-
         final String jwtToken = this.jwtService.generateToken(user);
+
+        final String refreshToken = this.jwtService.generateRefreshToken(user);
+
 
         return LoginResponse.builder()
             .token(jwtToken)
+            .refreshToken(refreshToken)
             .expiresIn(this.jwtService.getExpirationTime())
+            .build();
+    }
+
+    public LoginResponse refreshToken(String refreshToken) {
+        if (!jwtService.isTokenValid(refreshToken)) {
+            throw new RuntimeException("Refresh token inválido ou expirado.");
+        }
+
+        String email = jwtService.extractUsername(refreshToken);
+        var user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+
+        String newAccessToken = jwtService.generateToken(user);
+
+        return LoginResponse.builder()
+            .token(newAccessToken)
+            .expiresIn(jwtService.getExpirationTime())
             .build();
     }
     
