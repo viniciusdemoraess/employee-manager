@@ -39,6 +39,9 @@ public record ServidorEfetivoRequest(
     @NotNull
     CidadeRequest cidade,
 
+    @NotNull
+    UnidadeRequest unidade,
+
     @NotBlank
     String matricula,
 
