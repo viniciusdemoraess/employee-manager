@@ -23,8 +23,5 @@ public interface ServidorEfetivoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "matricula", source = "newData.matricula")
-    // @Mapping(target = "pessoa", source = "newData.pessoa")
-    // @Mapping(target = "endereco", source = "newData.endereco")
-    // @Mapping(target = "lotacao", source = "newData.lotacao")
     void updateEntity(ServidorEfetivo newData, @MappingTarget ServidorEfetivo oldData);
 }
