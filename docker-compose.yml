@@ -1,12 +1,14 @@
 version: '3.8'
 
 services:
-  minio:
+  minio_prod:
     image: minio/minio
-    container_name: minio
+    container_name: minio_prod
     environment:
       MINIO_ACCESS_KEY: minioaccesskey
       MINIO_SECRET_KEY: miniosecretkey
+      MINIO_ADDRESS: ":9000"
+      MINIO_CONSOLE_ADDRESS: ":9001"
     ports:
       - "9000:9000"
       - "9001:9001"
