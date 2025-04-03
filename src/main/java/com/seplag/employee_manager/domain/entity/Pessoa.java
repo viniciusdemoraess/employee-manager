@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,10 +55,12 @@ public class Pessoa {
     @Column(name = "pes_pai", length = 200)
     private String pai;
 
-    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
-    private FotoPessoa fotoPessoa;
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<FotoPessoa> fotos = new ArrayList<>();
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<PessoaEndereco> pessoaEnderecos = new ArrayList<>();
     
 }

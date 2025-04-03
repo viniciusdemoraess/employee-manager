@@ -4,6 +4,8 @@ package com.seplag.employee_manager.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,5 +51,6 @@ public class Endereco {
     private Cidade cidade;
 
     @OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<PessoaEndereco> pessoaEnderecos = new ArrayList<>();
 }
