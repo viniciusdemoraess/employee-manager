@@ -1,6 +1,11 @@
 package com.seplag.employee_manager.application.io;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.seplag.employee_manager.util.FotoValida;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,10 +42,18 @@ public record ServidorEfetivoRequest(
     String bairro,
 
     @NotNull
-    CidadeRequest cidade,
+    @NotBlank
+    @Size(max = 200)
+    String cidade,
+    
+    @NotNull
+    @NotBlank
+    @Size(max = 2)
+    String uf,
+
 
     @NotNull
-    UnidadeRequest unidade,
+    Long unidadeId,
 
     @NotBlank
     String matricula,
@@ -49,6 +62,9 @@ public record ServidorEfetivoRequest(
     LocalDate dataLotacao,
 
     @Size(max = 100)
-    String portaria
+    String portaria,
+
+    @FotoValida
+    List<MultipartFile> fotos
 
 ) {}
