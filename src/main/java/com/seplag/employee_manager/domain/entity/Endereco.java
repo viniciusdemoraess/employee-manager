@@ -41,7 +41,7 @@ public class Endereco {
     private String logradouro;
 
     @Column(name = "end_numero")
-    private Integer numero;
+    private Long numero;
 
     @Column(name = "end_bairro", length = 100)
     private String bairro;

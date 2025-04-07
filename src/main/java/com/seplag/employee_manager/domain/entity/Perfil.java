@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -38,7 +39,7 @@ public class Perfil {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank
+    @NotNull
     private PerfilUsuario name;
 
 }

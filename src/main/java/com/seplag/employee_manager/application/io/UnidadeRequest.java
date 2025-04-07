@@ -27,7 +27,7 @@ public record UnidadeRequest(
     @Size(max = 200)
     String logradouro,
 
-    Integer numero,
+    Long numero,
 
     @NotBlank
     @Size(max = 100)
