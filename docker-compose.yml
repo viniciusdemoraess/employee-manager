@@ -1,12 +1,13 @@
 version: '3.8'
 
 services:
-  minio_prod:
-    image: minio/minio
-    container_name: minio_prod
+  minio:
+    image: minio/minio:latest
+    container_name: minio
     environment:
       MINIO_ACCESS_KEY: minioaccesskey
       MINIO_SECRET_KEY: miniosecretkey
+      MINIO_BUCKETS: "servidores"
       MINIO_ADDRESS: ":9000"
       MINIO_CONSOLE_ADDRESS: ":9001"
     ports:
@@ -25,7 +26,27 @@ services:
       POSTGRES_DB: servidoresdb
     ports:
       - "5432:5432"
-      
+
+  app:
+    build: .
+    container_name: employee_manager_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/servidoresdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgrespassword
+      MINIO_URL: http://minio:9000
+      MINIO_ACCESS_KEY: minioaccesskey
+      MINIO_SECRET_KEY: miniosecretkey
+      DB_HOST: postgres
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+      - minio
+
+
+
 volumes:
   minio_data:
     driver: local
