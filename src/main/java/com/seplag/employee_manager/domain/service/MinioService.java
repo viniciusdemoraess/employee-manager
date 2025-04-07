@@ -53,12 +53,13 @@ public class MinioService {
 
     public String getFileUrl(String fileName) {
         try {
-            return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+            String url =  minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
                 .method(Method.GET)
                 .bucket(bucketName)
                 .object(fileName)
                 .expiry(5, TimeUnit.MINUTES)
                 .build());
+            return url.replace("http://minio:9000", "http://localhost:9002");
         } catch (Exception e) {
             throw new RuntimeException("Erro ao gerar URL temporária", e);
         }
