@@ -8,11 +8,13 @@ import com.seplag.employee_manager.domain.entity.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
     Optional<User> findById(Long id);
+
+    boolean existsByEmail(String email);
 
 }
 

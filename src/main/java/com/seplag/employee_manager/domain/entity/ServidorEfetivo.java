@@ -18,6 +18,6 @@ public class ServidorEfetivo extends Pessoa implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "se_matricula", length = 20, nullable = false)
+    @Column(name = "se_matricula", length = 20, nullable = false, unique = true)
     private String matricula;
 }
