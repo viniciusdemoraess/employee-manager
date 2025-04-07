@@ -41,8 +41,7 @@ public class SecurityConfig {
         "/actuator/**",
         "/instances/**",
         "/wallboard/**",
-        "/applications/**",
-        "/servidores**"
+        "/applications/**"
     };
 
     private final AuthenticationProvider authenticationProvider;
