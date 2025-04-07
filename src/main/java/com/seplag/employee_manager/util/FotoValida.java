@@ -14,7 +14,7 @@ import jakarta.validation.Payload;
 @Documented
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {FotoValidaValidator.class})
+@Constraint(validatedBy = {FotoValidaListaValidator.class})
 public @interface FotoValida {
 
   public String message() default "Tipo de arquivo inválido";
