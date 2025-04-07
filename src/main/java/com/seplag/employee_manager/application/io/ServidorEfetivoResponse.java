@@ -3,13 +3,6 @@ package com.seplag.employee_manager.application.io;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.seplag.employee_manager.util.FotoValida;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,44 +11,39 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ServidorEfetivoResponse {
+
+    Long id;
     
     String nome;
 
-    // LocalDate dataNascimento;
+    LocalDate dataNascimento;
 
-    // String sexo;
+    String sexo;
 
-    // String mae;
+    String mae;
 
-    // String pai;
+    String pai;
     
-    // String tipoLogradouro;
-
+    String tipoLogradouro;
     
-    // String logradouro;
+    String logradouro;
 
-    // Integer numero;
+    Long numero;
 
+    String bairro;
 
-    // String bairro;
+    String cidade;
 
+    String uf;
 
-    // String cidade;
-    
+    String unidade;
 
-    // String uf;
+    String matricula;
 
-    // String unidade;
+    LocalDate dataLotacao;
 
-    // String matricula;
-
-
-    // LocalDate dataLotacao;
-
-    // String portaria;
-
+    String portaria;
 
     List<String> fotos;
-
 
 }

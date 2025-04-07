@@ -13,14 +13,14 @@ import jakarta.validation.constraints.Size;
 
 public record ServidorEfetivoRequest(
 
-    @NotBlank
+    @NotBlank(message = "O campo nome não pode estar em branco")
     @Size(max = 200)
     String nome,
 
     @NotNull
     LocalDate dataNascimento,
 
-    @NotBlank
+    @NotBlank(message = "O campo sexo não pode estar em branco")
     @Size(max = 9)
     String sexo,
 
@@ -36,18 +36,18 @@ public record ServidorEfetivoRequest(
     @Size(max = 200)
     String logradouro,
 
-    Integer numero,
+    Long numero,
 
     @Size(max = 100)
     String bairro,
 
     @NotNull
-    @NotBlank
+    @NotBlank(message = "O campo cidade não pode estar em branco")
     @Size(max = 200)
     String cidade,
     
     @NotNull
-    @NotBlank
+    @NotBlank(message = "O campo UF não pode estar em branco")
     @Size(max = 2)
     String uf,
 
@@ -55,7 +55,7 @@ public record ServidorEfetivoRequest(
     @NotNull
     Long unidadeId,
 
-    @NotBlank
+    @NotBlank(message = "O campo matricula não pode estar em branco")
     String matricula,
 
     @NotNull
