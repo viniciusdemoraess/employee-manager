@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import com.seplag.employee_manager.infrastructure.auth.AuthenticationService;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/auth")
+@Tag(name = "Autenticação", description = "Endpoints para controle de autenticação.")
 public class AuthenticationRestAdapter {
 
     private final AuthenticationService authenticationService;

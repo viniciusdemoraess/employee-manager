@@ -1,7 +1,7 @@
 package com.seplag.employee_manager.application.adapter;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seplag.employee_manager.application.io.UnidadeRequest;
+import com.seplag.employee_manager.application.io.UnidadeResponse;
 import com.seplag.employee_manager.domain.entity.Unidade;
 import com.seplag.employee_manager.domain.service.UnidadeService;
 
@@ -44,8 +46,9 @@ public class UnidadeRestAdapter {
         @ApiResponse(responseCode = "200", description = "Lista de unidades retornada com sucesso")
     })
     @GetMapping
-    public Page<Unidade> getUnits(Pageable pageable) {
-        return unidadeService.getUnits(pageable);
+    public Page<UnidadeResponse> getUnits(
+        @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return unidadeService.getUnits(PageRequest.of(page, size));
     }
 
 
@@ -61,9 +64,8 @@ public class UnidadeRestAdapter {
         @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Unidade> getUnitById(@PathVariable Long id) {
-        Unidade unidade = unidadeService.getUnitById(id);
-        return ResponseEntity.ok(unidade);
+    public ResponseEntity<UnidadeResponse> getUnitById(@PathVariable Long id) {;
+        return ResponseEntity.ok(unidadeService.getUnitById(id));
     }
 
     /**
@@ -81,9 +83,8 @@ public class UnidadeRestAdapter {
         )
     })
     @PostMapping
-    public ResponseEntity<Unidade> createUnit(@RequestBody final UnidadeRequest unidade) {
-        Unidade createdUnit = unidadeService.createUnit(unidade);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUnit);
+    public ResponseEntity<UnidadeResponse> createUnit(@RequestBody final UnidadeRequest unidade) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(unidadeService.createUnit(unidade));
     }
 
     
@@ -100,9 +101,8 @@ public class UnidadeRestAdapter {
         @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Unidade> updateUnit(@PathVariable Long id, @RequestBody UnidadeRequest unidade) {
-        Unidade updatedUnit = unidadeService.updateUnit(id, unidade);
-        return ResponseEntity.ok(updatedUnit);
+    public ResponseEntity<UnidadeResponse> updateUnit(@PathVariable Long id, @RequestBody UnidadeRequest unidade) {
+        return ResponseEntity.ok(unidadeService.updateUnit(id, unidade));
     }
 
 
