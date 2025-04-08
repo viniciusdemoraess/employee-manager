@@ -25,18 +25,8 @@ public class MinioInitializer {
     @Value("${minio.secret-key:miniosecretkey}")
     private String password;
 
-    /*public MinioInitializer() {
-
-        System.out.println("JEGUEE" + bucketName + url + login + password);
-        this.minioClient = MinioClient.builder()
-            .endpoint(url)
-            .credentials(login, password)
-            .build();
-    }*/
-
     @PostConstruct
     public void createBucketIfNotExists() {
-        System.out.println("🪣 Inicializando Minio...");
         this.minioClient = MinioClient.builder()
             .endpoint(url)
             .credentials(login, password)

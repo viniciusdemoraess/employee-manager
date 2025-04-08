@@ -1,12 +1,7 @@
 package com.seplag.employee_manager.application.adapter;
 
-
-
-import java.io.InputStream;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +21,6 @@ import com.seplag.employee_manager.application.io.ServidorEfetivoResponse;
 import com.seplag.employee_manager.domain.service.ServidorEfetivoService;
 
 
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -94,25 +88,6 @@ public class ServidorEfetivoRestAdapter {
     public ResponseEntity<ServidorEfetivoResponse> getServidorEfetivo(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
-
-
-    @GetMapping("/file/{fileName}")
-    @Hidden
-    public ResponseEntity<byte[]> getFile(@PathVariable String fileName) {
-        try {
-            InputStream stream = service.getImage(fileName);
-
-            byte[] content = stream.readAllBytes();
-            stream.close();
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_PNG);
-            return new ResponseEntity<>(content, headers, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
 
     @Operation(summary = "Listar servidores por unidade", description = "Retorna uma lista paginada de servidores efetivos filtrada por unidade.")
     @ApiResponses(value = {

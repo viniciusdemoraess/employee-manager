@@ -268,27 +268,6 @@ public class ServidorEfetivoService {
             .map(this::mapToResponse);
     }
 
-    public InputStream getImage(String fileName){
-        try {
-                String urlTemporaria = minioService.getFileUrl(fileName);
-
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(urlTemporaria))
-                        .GET()
-                        .build();
-
-                HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
-
-                if (response.statusCode() == 200) {
-                    return response.body();
-                } else {
-                    throw new RuntimeException("Falha ao obter imagem. Código HTTP: " + response.statusCode());
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("Erro ao buscar imagem", e);
-            }    
-    }
 
     private ServidorEfetivoResponse mapToResponse(ServidorEfetivo servidor) {
         PessoaEndereco pessoaEndereco = servidor.getPessoaEnderecos()
