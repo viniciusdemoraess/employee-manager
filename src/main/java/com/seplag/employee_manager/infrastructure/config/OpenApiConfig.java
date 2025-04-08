@@ -21,7 +21,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-            .info(new Info().title("Gerênciamento de Servidores").version("v0.0.1"))
+            .info(new Info().title("Gerenciamento de Servidores").version("v0.0.1"))
             .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
     }
 }
