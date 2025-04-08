@@ -38,10 +38,11 @@ public class Unidade {
     private String sigla;
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("unidade-lotacao")
     private List<Lotacao> lotacoes = new ArrayList<>();
 
     @OneToMany(mappedBy = "unidade", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference 
+    @JsonManagedReference("unidade-endereco")
     private List<UnidadeEndereco> unidadeEnderecos = new ArrayList<>();
 
     public void adicionarEndereco(Endereco endereco) {

@@ -2,6 +2,8 @@ package com.seplag.employee_manager.domain.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,7 @@ public class Lotacao {
 
     @ManyToOne
     @JoinColumn(name = "unid_id", nullable = false)
+    @JsonBackReference("unidade-lotacao")
     private Unidade unidade;
 
     @Column(name = "lot_data_lotacao", nullable = false)

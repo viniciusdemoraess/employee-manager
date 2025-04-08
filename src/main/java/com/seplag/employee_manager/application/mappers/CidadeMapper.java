@@ -15,4 +15,9 @@ public interface CidadeMapper {
     @Mapping(target = "uf", source = "request.uf") 
     Cidade toEntity(CidadeRequest request);
 
+
+    
+    @Mapping(target = "nome", source = "nome") 
+    @Mapping(target = "uf", source = "uf") 
+    CidadeRequest toResponse(Cidade cidade);
 }

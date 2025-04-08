@@ -1,6 +1,7 @@
 package com.seplag.employee_manager.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ public class UnidadeEndereco {
 
     @ManyToOne
     @JoinColumn(name = "unid_id", nullable = false)
-    @JsonIgnore
+    @JsonBackReference("unidade-endereco")
     private Unidade unidade;
 
     @ManyToOne

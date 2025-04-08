@@ -78,7 +78,7 @@ public class ServidorTemporarioService {
             cidadeSalva.getUf(), 
             unidade.getNome(), 
             servidorSalvo.getDataAdmissao(),
-            servidorSalvo.getDataAdmissao(),
+            servidorSalvo.getDataDemissao(),
             lotacaoDoServidor.getDataLotacao(), 
             lotacaoDoServidor.getPortaria(),
             urlsFotos
@@ -212,15 +212,8 @@ public class ServidorTemporarioService {
                 try {
                     String fileName = gerarNomeComHash(foto);
                     minioService.uploadFile(foto, fileName);
-
-                    // String urlTemporaria = minioService.getFileUrl(fileName);
-                    //String publicUrl = urlTemporaria.replace("http://minio:9000", "http://localhost");
-                    String publicUrl = ServletUriComponentsBuilder
-                            .fromCurrentContextPath()
-                            .path("/servidores-efetivos/file/")
-                            .path(fileName)
-                            .toUriString();
-                     urlsFotos.add(publicUrl);
+                    
+                    urlsFotos.add(minioService.getFileUrl(fileName));
                     return new FotoPessoa(null, servidor, LocalDate.now(), "servidores", fileName);
                 } catch (Exception e) {
                     throw new RuntimeException("Erro ao salvar foto", e);
@@ -273,27 +266,6 @@ public class ServidorTemporarioService {
             .map(this::mapToResponse);
     }
 
-    public InputStream getImage(String fileName){
-        try {
-                String urlTemporaria = minioService.getFileUrl(fileName);
-
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(urlTemporaria))
-                        .GET()
-                        .build();
-
-                HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
-
-                if (response.statusCode() == 200) {
-                    return response.body();
-                } else {
-                    throw new RuntimeException("Falha ao obter imagem. Código HTTP: " + response.statusCode());
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("Erro ao buscar imagem", e);
-            }    
-    }
 
     private ServidorTemporarioResponse mapToResponse(ServidorTemporario servidor) {
         PessoaEndereco pessoaEndereco = servidor.getPessoaEnderecos()
@@ -314,17 +286,11 @@ public class ServidorTemporarioService {
         List<String> urlsFotos = fotoPessoaRepository.findByPessoa(servidor)
             .stream()
             .map(f -> { 
-                String urlTemporaria = ServletUriComponentsBuilder
-                    .fromCurrentContextPath()
-                    .path("/servidores-efetivos/file/")
-                    .path(f.getHash())
-                    .toUriString();
-                return urlTemporaria;
-                // try {
-                //     return minioService.getFileUrl(f.getHash());
-                // } catch (Exception e) {
-                //     return null;
-                // }
+                try {
+                    return minioService.getFileUrl(f.getHash());
+                } catch (Exception e) {
+                    return null;
+                }
             })
             .filter(f -> f != null)
             .collect(Collectors.toList());
