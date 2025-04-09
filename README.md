@@ -12,7 +12,7 @@
 
 ## 🧾 Sumário
 
-- [📋 Descrição do Projeto](#📋-descrição-do-projeto)
+- [📋 Descrição do Projeto](#descricao-do-projeto)
 - [📦 Tecnologias Utilizadas](#📦-tecnologias-utilizadas)
 - [🚀 Como Executar o Projeto](#🚀-como-executar-o-projeto)
 - [🔐 Autenticação](#🔐-autenticação)
@@ -23,7 +23,7 @@
 
 ---
 
-## 📋 Descrição do Projeto
+## Descrição do Projeto
 
 Este projeto consiste em uma API RESTful desenvolvida para gerenciar dados de servidores efetivos e temporários, unidades e lotações. Os dados são persistidos em um banco PostgreSQL e as fotos são armazenadas em um servidor S3 MinIO. A aplicação inclui autenticação com expiração, renovação de token, CORS configurado, paginação e upload de imagens.
 
@@ -62,13 +62,13 @@ docker-compose up --build
 
 Esse comando irá iniciar:
 
-- A aplicação Spring Boot.
-
 - O banco de dados PostgreSQL.
 
 - O servidor MinIO.
 
 - O proxy reverso Nginx.
+
+- A aplicação Spring Boot.
 
 ### 3. Acesse a documentação do Swagger:
 
@@ -172,6 +172,81 @@ Faça upload de imagens e veja os links temporários gerados
 
 Use a paginação via query params:
 Ex: GET /servidores?page=0&size=10
+
+Exemplo: 
+
+**Login:**
+![image](https://github.com/user-attachments/assets/9f7ba938-9b2b-48e7-ae39-ee8ae888566a)
+
+Exemplo de Response:
+```bash
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoiYWNjZXNzIiwic3ViIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzQ0MjAzNTU3LCJleHAiOjE3NDQyMDM4NTd9.7_tD8lspN9NKC8u_RNTGq9DaSZv05P3znqDD6YooMAk",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJ0eXBlIjoicmVmcmVzaCIsInN1YiI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTc0NDIwMzU1NywiZXhwIjoxNzQ0Mjg5OTU3fQ.7WYG9EWCEqW3KkdeE4rbyDpZKU2R45FAvkJsWVz0DAk",
+  "expiresIn": 300000
+}
+```
+**Clique aqui:**
+
+![image](https://github.com/user-attachments/assets/683400b2-a944-4805-8a9c-505e8f3de639)
+
+**E adicione o token para liberar as requisições.**
+
+![image](https://github.com/user-attachments/assets/c98e563f-a6bf-4206-a79f-f73714b66607)
+
+**Caso o token expire, voce pode usar o refreshToken para gerar um novo token, porém antes faça o logout:**
+
+![image](https://github.com/user-attachments/assets/683400b2-a944-4805-8a9c-505e8f3de639)
+
+![image](https://github.com/user-attachments/assets/8511eb28-c44d-46e1-9cc4-22ceaaf19271)
+
+![image](https://github.com/user-attachments/assets/9b310c3c-ff20-441e-8ee7-595c39a2d8b0)
+
+
+**Criação de Unidades:**
+
+![image](https://github.com/user-attachments/assets/3dd751a0-a431-4452-bcd1-ef11a0f2a292)
+
+
+Exemplo Request:
+```bash
+{
+  "nome": "PERICIA OFICIAL E IDENTIFICACAO TECNICA",
+  "sigla": "POLITEC",
+  "tipoLogradouro": "casa",
+  "logradouro": "Rua Tal Quadra Tal",
+  "numero": 23,
+  "bairro": "Carumbé",
+  "cidade": {
+    "nome": "Cuiabá",
+    "uf": "MT"
+  }
+}
+```
+
+**Criação Servidor Efetivo:**
+
+https://github.com/user-attachments/assets/e99bee89-bd8e-4e71-8b23-7de95a9035b4
+
+**Listar Servidor Efetivo Por Unidade:**
+
+https://github.com/user-attachments/assets/1c6eb9e4-cb19-4e82-af7e-d637e4178cb4
+
+**Listar Endereco Funcional de Servidor Efetivo:**
+
+https://github.com/user-attachments/assets/c67f93a4-f623-4456-8400-89653c9918b2
+
+**Criar Lotação:**
+
+
+https://github.com/user-attachments/assets/311bfd80-a9ac-4ed7-b003-47c700bb4e74
+
+
+
+**Caso o servidor já esteja lotado na unidade ele nao permite a criação duplicada da lotação.**
+
+
+
 
 
 ## 📌 Observações Importantes sobre os Pré-Requisitos.
