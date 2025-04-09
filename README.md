@@ -12,18 +12,18 @@
 
 ## 🧾 Sumário
 
-- [📋 Descrição do Projeto](#descricao-do-projeto)
-- [📦 Tecnologias Utilizadas](#📦-tecnologias-utilizadas)
-- [🚀 Como Executar o Projeto](#🚀-como-executar-o-projeto)
-- [🔐 Autenticação](#🔐-autenticação)
+- [📋 Descrição do Projeto](#-descrição-do-projeto)
+- [📦 Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
+- [🔐 Autenticação](#-autenticação)
 - [📁 Endpoints e Funcionalidades](#endpoints-e-funcionalidades)
-- [🗃️ Banco de Dados](#🗃️-banco-de-dados)
-- [🧪 Como Testar](#🧪-como-testar)
-- [📌 Observações Importantes](#📌-observações-importantes)
+- [🗃️ Banco de Dados](#🗃-banco-de-dados)
+- [🧪 Como Testar](#-como-testar)
+- [📌 Observações Importantes](#-observações-importantes)
 
 ---
 
-## Descrição do Projeto
+## 📋 Descrição do Projeto
 
 Este projeto consiste em uma API RESTful desenvolvida para gerenciar dados de servidores efetivos e temporários, unidades e lotações. Os dados são persistidos em um banco PostgreSQL e as fotos são armazenadas em um servidor S3 MinIO. A aplicação inclui autenticação com expiração, renovação de token, CORS configurado, paginação e upload de imagens.
 
