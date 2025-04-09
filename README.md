@@ -16,10 +16,10 @@
 - [📦 Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
 - [🔐 Autenticação](#-autenticação)
-- [📁 Endpoints e Funcionalidades](#endpoints-e-funcionalidades)
-- [🗃️ Banco de Dados](#🗃-banco-de-dados)
+- [📁 Endpoints e Funcionalidades](#endpoints-e-funcionalidades-requisitos-específicos)
+- [🗃️ Banco de Dados](#-banco-de-dados)
 - [🧪 Como Testar](#-como-testar)
-- [📌 Observações Importantes](#-observações-importantes)
+- [📌 Observações Importantes](#-observações-importantes-sobre-os-pré-requisitos)
 
 ---
 
@@ -106,7 +106,7 @@ POST /auth/refresh → renova o token
 
 ```
 
-## 📁 Endpoints e Funcionalidades - Requisitos Específicos
+## 📁 Endpoints e Funcionalidades Requisitos Específicos
 
 - Servidor Efetivo
 
