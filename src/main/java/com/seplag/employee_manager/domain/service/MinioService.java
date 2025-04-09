@@ -59,7 +59,7 @@ public class MinioService {
                 .object(fileName)
                 .expiry(5, TimeUnit.MINUTES)
                 .build());
-            return url.replace("http://minio:9000", "http://localhost:9002");
+            return url.replace("http://minio-prod-vin:9000", "http://localhost:9002");
         } catch (Exception e) {
             throw new RuntimeException("Erro ao gerar URL temporária", e);
         }

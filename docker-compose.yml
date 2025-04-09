@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  minio:
+  minio-prod-vin:
     image: minio/minio:latest
-    container_name: minio
+    container_name: minio-prod-vin
     environment:
       MINIO_ROOT_USER: minioaccesskey
       MINIO_ROOT_PASSWORD: miniosecretkey
@@ -25,11 +25,11 @@ services:
     ports:
       - "9002:9002"
     depends_on:
-      - minio
+      - minio-prod-vin
 
-  postgres:
+  postgres-prod-vin:
     image: postgres:latest
-    container_name: postgres
+    container_name: postgres-prod-vin
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgrespassword
@@ -43,17 +43,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/servidoresdb
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-prod-vin:5432/servidoresdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgrespassword
-      MINIO_URL: http://minio:9000
+      MINIO_URL: http://minio-prod-vin:9000
       MINIO_ACCESS_KEY: minioaccesskey
       MINIO_SECRET_KEY: miniosecretkey
-      DB_HOST: postgres
+      DB_HOST: postgres-prod-vin
       DB_PORT: 5432
     depends_on:
-      - postgres
-      - minio
+      - postgres-prod-vin
+      - minio-prod-vin
 
 
 volumes:
