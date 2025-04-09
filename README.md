@@ -17,7 +17,7 @@
 - [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
 - [🔐 Autenticação](#-autenticação)
 - [📁 Endpoints e Funcionalidades](#-endpoints-e-funcionalidades-requisitos-específicos)
-- [🗃️ Banco de Dados](#-banco-de-dados)
+- [🗃️ Banco de Dados](#banco-de-dados)
 - [🧪 Como Testar](#-como-testar)
 - [📌 Observações Importantes](#-observações-importantes-sobre-os-pré-requisitos)
 
