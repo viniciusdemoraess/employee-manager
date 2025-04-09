@@ -3,21 +3,23 @@
 ## 👤 Dados do Candidato
 
 **Nome completo:** Vinicius de Moraes Espirito Santos Oliveira
+
 **Email:** viniciusdemoraespro@gmail.com  
+
 **Cargo:** DESENVOLVEDOR JAVA (BACK-END)
 
 ---
 
 ## 🧾 Sumário
 
-- [📋 Descrição do Projeto](#descrição-do-projeto)
-- [📦 Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [🚀 Como Executar o Projeto](#como-executar-o-projeto)
-- [🔐 Autenticação](#autenticação)
+- [📋 Descrição do Projeto](#📋-descrição-do-projeto)
+- [📦 Tecnologias Utilizadas](#📦-tecnologias-utilizadas)
+- [🚀 Como Executar o Projeto](#🚀-como-executar-o-projeto)
+- [🔐 Autenticação](#🔐-autenticação)
 - [📁 Endpoints e Funcionalidades](#endpoints-e-funcionalidades)
-- [🗃️ Banco de Dados](#banco-de-dados)
-- [🧪 Como Testar](#como-testar)
-- [📌 Observações Importantes](#observações-importantes)
+- [🗃️ Banco de Dados](#🗃️-banco-de-dados)
+- [🧪 Como Testar](#🧪-como-testar)
+- [📌 Observações Importantes](#📌-observações-importantes)
 
 ---
 
@@ -74,6 +76,8 @@ Esse comando irá iniciar:
 http://localhost:8080/employee-manager/v0.0.1/swagger-ui/index.html
 ```
 
+**Obs: Caso você utilize outra ferramenta para fazer as requisições como o POSTMAN, o endereço base fica: `http://localhost:8080/employee-manager/v0.0.1/`**
+
 ## 🔐 Autenticação
 
 A aplicação utiliza JWT para autenticação.
@@ -102,9 +106,7 @@ POST /auth/refresh → renova o token
 
 ```
 
-## 📁 Endpoints e Funcionalidades
-
-CRUDs completos com POST, PUT, GET, DELETE para:
+## 📁 Endpoints e Funcionalidades - Requisitos Específicos
 
 - Servidor Efetivo
 
@@ -114,29 +116,53 @@ CRUDs completos com POST, PUT, GET, DELETE para:
 
 - Lotação
 
-### Endpoints Específicos:
+#### Ambos os endpoints de CRUD estão bem mapeados no Swagger: POST, PUT, GET, DELETE.
+#### Swagger Endpoit: http://localhost:8080/employee-manager/v0.0.1/swagger-ui/index.html
 
-#### GET /servidores-efetivos/unidade/{unidId}
+
+### Requisitos Específicos:
+
+#### Atendendo aos Requisitos Específicos do ANEXO III: GET /servidores-efetivos/unidade/{unidId}
+
 → Lista servidores efetivos lotados em uma unidade específica com:
 Nome, idade, unidade de lotação e link da fotografia
 
-#### GET /enderecos-funcionais?nome={parteNome}
+#### Atendendo aos Requisitos Específicos do ANEXO III:  GET /enderecos-funcionais?nome={parteNome}
+
 → Retorna endereço funcional com base em parte do nome do servidor efetivo
 
-### Upload de Fotografia:
+### Atendendo ao item - Upload de Fotografia:
 
-#### POST /servidores-efetivos
+#### Atendendo aos Requisitos Específicos do ANEXO III:  POST /servidores-efetivos e POST /servidores-temporarios
 
-→ Cria um servidor efetivo.
-→ Realiza o upload de uma ou mais fotografias para o MinIO
-→ Link temporário de 5 minutos para visualização das imagens
+→ Ao criar um servidor Efetivo ou Temporário, existe a possibilidade de Envio de uma ou mais Fotos do servidor.
+
+→ O upload de uma ou mais fotografias é feito para o MinIO.
+
+→ Link temporário de 5 minutos para visualização das imagens.
+
+![image](https://github.com/user-attachments/assets/39d21c3b-a452-42f2-9caa-a09958fa2ee8)
+
+**O botão onde a seta azul indica é onde você pode adicionar a opção de enviar mais de uma foto.**
+
+
 
 ## 🗃️ Banco de Dados
 O banco de dados PostgreSQL é iniciado em container Docker. As entidades estão de acordo com o diagrama fornecido e o schema é gerado automaticamente via JPA.
 
+![image](https://github.com/user-attachments/assets/b9bc54e0-52f4-485e-bceb-51beae750e4e)
+
+
 ## 🧪 Como Testar
 
-Faça login no sistema via /auth/login
+Faça login no sistema via /auth/login e adicione o email e senha:
+```bash
+{
+  "email": "admin@admin.com",
+  "password": "123456"
+}
+
+``` 
 
 Use o token JWT nas requisições protegidas (no Swagger ou via Postman)
 
@@ -147,9 +173,41 @@ Faça upload de imagens e veja os links temporários gerados
 Use a paginação via query params:
 Ex: GET /servidores?page=0&size=10
 
-## 📌 Observações Importantes
 
-- A autenticação expira em 5 minutos e exige renovação
+## 📌 Observações Importantes sobre os Pré-Requisitos.
+
+- Atendendo ao item 'B' - Pré-Requisitos do Anexo III Foi utilizado Java 21.
+
+- Atendendo ao item 'B' - Pré-Requisitos do Anexo III- Foi executado em container o servidor Min.io.
+
+- Atendendo ao item 'C' - Pré-Requisitos do Anexo III - Foi executado em container o banco de dados PostgreSQL
+
+## 📌 Observações Importantes sobre os Requisitos Gerais.
+
+- Atendendo ao item 'A' - Requisitos Gerais do Anexo III: Foi implementado um mecanismo de autenticação com JWT.
+
+- Atendendo ao item 'B' - Requisitos Gerais do Anexo III: A autenticação expira em 5 minutos e possibilita renovação.
+
+- Atendendo ao item 'C' - Requisitos Gerais do Anexo III: Foram implementados os verbos post, put, get e o delete também.
+
+- Atendendo ao item 'D' - Requisitos Gerais do Anexo III: Todas as consultas contém recursos de paginação.
+
+- Atendendo ao item 'E' - Requisitos Gerais do Anexo III: Os dados produzidos são armazenados no servidor de banco de dados (Postgresql) que foi criado em container.
+
+- Atendendo ao item 'F' - Requisitos Gerais do Anexo III: A solução final foi orquestrada em container, sendo necessário apenas rodar o docker compose para ter acesso a aplicação.
+
+## 📌 Observações Importantes sobre os Requisitos Específicos.
+
+- Atendendo aos Requisitos Específicos do Anexo III: Foi implementado uma API Rest para o diagrama de banco de dados do anexo.
+
+- Atendendo aos Requisitos Específicos do Anexo III: Foi criado um CRUD para Servidor Efetivo, Servidor Temporário, Unidade e Lotação, onde foi contemplado a inclusão e edição dos dados das tabelas relacionadas.
+
+- Atendendo aos Requisitos Específicos do Anexo III: Foi Criado um endpoint que permita consultar os servidores efetivos lotados em determinada unidade parametrizando a consulta pelo atributo unid_id;
+Retornar os seguintes campos: Nome, idade, unidade de lotação e fotografia;
+
+- Atendendo aos Requisitos Específicos do Anexo III: Foi Criado um endpoint que permita consultar o endereço funcional (da unidade onde o servidor é lotado) a partir de uma parte do nome do servidor efetivo.
+
+- Atendendo aos Requisitos Específicos do Anexo III: Realizar o upload de uma ou mais fotografias enviando-as para o Min.IO; A recuperação das imagens deverá ser através de links temporários gerados pela biblioteca do Min.IO com tempo de expiração de 5 minutos
 
 - O acesso aos endpoints está limitado por CORS ao domínio do frontend
 
