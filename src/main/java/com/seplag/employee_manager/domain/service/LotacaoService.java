@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.seplag.employee_manager.application.exception.BusinessException;
 import com.seplag.employee_manager.application.io.LotacaoRequest;
 import com.seplag.employee_manager.application.io.LotacaoResponse;
 import com.seplag.employee_manager.application.io.PessoaResponse;
@@ -32,6 +33,13 @@ public class LotacaoService {
     
     @Transactional
     public LotacaoResponse create(LotacaoRequest request) {
+
+        boolean exists = repository.existsByPessoaIdAndUnidadeId(request.pessoaId(), request.unidadeId());
+
+        if (exists) {
+            throw new BusinessException("Essa pessoa já está lotada na unidade informada.");
+        }
+
         Lotacao lotacao = new Lotacao();
         
         Unidade unidade = unidadeRepository.findById(request.unidadeId())
@@ -51,6 +59,14 @@ public class LotacaoService {
 
     @Transactional
     public LotacaoResponse update(Long id, LotacaoRequest request) {
+
+        boolean exists = repository.existsByPessoaIdAndUnidadeIdAndIdNot(
+            request.pessoaId(), request.unidadeId(), id
+        );
+
+        if (exists) {
+            throw new BusinessException("Já existe uma lotação com essa pessoa e unidade.");
+        }
         Lotacao lotacao = get(id);
 
         Unidade unidade = unidadeRepository.findById(request.unidadeId())
@@ -70,29 +86,6 @@ public class LotacaoService {
 
         return mapToResponse(repository.save(lotacao));
     }
-
-
-
-    /*@Transactional
-    public LotacaoResponse update(Long id , LotacaoRequest request) {
-        Lotacao lotacao = get(id);
-
-        Unidade unidade = unidadeRepository.findById(request.unidadeId())
-        .orElseThrow(() -> new EntityNotFoundException("Unidade com ID: " + request.unidadeId() + ", não encontrada."));
-        
-        Pessoa pessoa = pessoaRepository.findById(request.pessoaId())
-        .orElseThrow(() -> new EntityNotFoundException("Pessoa com ID: " + request.pessoaId() + ", não encontrada."));        
-
-        lotacao.setPessoa(pessoa);
-        lotacao.setUnidade(unidade);
-        lotacao.setDataLotacao(request.dataLotacao());
-        lotacao.setDataRemocao(request.dataRemocao());
-        lotacao.setPortaria(request.portaria());
-
-        return mapToResponse(repository.save(lotacao));
-
-    }*/
-
 
     public Lotacao get(Long id){
         return repository.findById(id)

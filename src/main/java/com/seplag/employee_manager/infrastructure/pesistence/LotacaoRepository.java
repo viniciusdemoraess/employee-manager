@@ -27,6 +27,10 @@ public interface LotacaoRepository extends JpaRepository<Lotacao, Long> {
     Page<ServidorEfetivo> findServidoresEfetivosPorUnidade(@Param("unidId") Long unidId, Pageable pageable);
 
     List<Lotacao> findByPessoaId(Long pessoaId);
+
+    boolean existsByPessoaIdAndUnidadeIdAndIdNot(Long pessoaId, Long unidadeId, Long id);
+
+    boolean existsByPessoaIdAndUnidadeId(Long pessoaId, Long unidadeId);
     
 
  }
