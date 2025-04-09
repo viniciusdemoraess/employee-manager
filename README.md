@@ -147,7 +147,7 @@ Nome, idade, unidade de lotação e link da fotografia
 
 
 
-## 🗃️ Banco de Dados
+## Banco de Dados
 
 O banco de dados PostgreSQL é iniciado em container Docker. As entidades estão de acordo com o diagrama fornecido e o schema é gerado automaticamente via JPA.
 
