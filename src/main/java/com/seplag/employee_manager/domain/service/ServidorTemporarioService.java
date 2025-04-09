@@ -1,11 +1,6 @@
 package com.seplag.employee_manager.domain.service;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.seplag.employee_manager.application.io.ServidorTemporarioRequest;
 import com.seplag.employee_manager.domain.entity.Cidade;
