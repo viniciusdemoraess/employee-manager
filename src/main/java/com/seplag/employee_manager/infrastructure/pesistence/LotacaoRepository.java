@@ -26,6 +26,7 @@ public interface LotacaoRepository extends JpaRepository<Lotacao, Long> {
     """)
     Page<ServidorEfetivo> findServidoresEfetivosPorUnidade(@Param("unidId") Long unidId, Pageable pageable);
 
+    List<Lotacao> findByPessoaId(Long pessoaId);
     
 
  }

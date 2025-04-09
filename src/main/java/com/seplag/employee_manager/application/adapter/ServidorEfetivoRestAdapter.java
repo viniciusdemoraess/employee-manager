@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seplag.employee_manager.application.io.EnderecoFuncionalResponse;
 import com.seplag.employee_manager.application.io.ServidorEfetivoPerUnitResponse;
 import com.seplag.employee_manager.application.io.ServidorEfetivoRequest;
 import com.seplag.employee_manager.application.io.ServidorEfetivoResponse;
@@ -92,12 +93,25 @@ public class ServidorEfetivoRestAdapter {
     @Operation(summary = "Listar servidores por unidade", description = "Retorna uma lista paginada de servidores efetivos filtrada por unidade.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Lista de servidores retornada com sucesso"),
-        @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
+        @ApiResponse(responseCode = "404", description = "Nenhum servidor encontrado para a unidade.")
     })
     @GetMapping("/unidade/{unidId}")
     public ResponseEntity<Page<ServidorEfetivoPerUnitResponse>> listarPorUnidade(@PathVariable Long unidId, 
         @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(service.listarPorUnidade(unidId, PageRequest.of(page, size)));
+    }
+
+    @Operation(summary = "Listar endereço funcional.", description = "Listar endereço funcional de servidores a partir de partes do nome.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de endereços funcionais retornada com sucesso."),
+        @ApiResponse(responseCode = "404", description = "Nenhum endereço funcional encontrado para esse nome.")
+    })
+    @GetMapping("/endereco-funcional")
+    public ResponseEntity<Page<EnderecoFuncionalResponse>> buscarEnderecoFuncional(
+        @RequestParam String nome,
+        @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(service.buscarEnderecoFuncionalPorNome(nome, PageRequest.of(page, size)));
     }
 
 

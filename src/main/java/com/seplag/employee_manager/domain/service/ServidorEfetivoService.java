@@ -1,11 +1,6 @@
 package com.seplag.employee_manager.domain.service;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -15,11 +10,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.seplag.employee_manager.application.io.EnderecoFuncionalResponse;
 import com.seplag.employee_manager.application.io.ServidorEfetivoPerUnitResponse;
 import com.seplag.employee_manager.application.io.ServidorEfetivoRequest;
 import com.seplag.employee_manager.application.io.ServidorEfetivoResponse;
@@ -36,6 +32,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import static java.util.Objects.nonNull;
+
 
 @Slf4j
 @Service
@@ -345,7 +342,41 @@ public class ServidorEfetivoService {
         return lotacaoRepository.findServidoresEfetivosPorUnidade(unidId, pageable)
             .map(this::mapToServidorUnidade);
     }
+
+    public Page<EnderecoFuncionalResponse> buscarEnderecoFuncionalPorNome(String nome, Pageable pageable) {
+        Page<ServidorEfetivo> servidores = repository.findByNomeContainingIgnoreCase(nome, pageable);
+    
+        List<EnderecoFuncionalResponse> enderecos = servidores.stream()
+            .map(this::mapToEnderecoFuncional)
+            .flatMap(Optional::stream)
+            .toList();
+    
+        return new PageImpl<>(enderecos, pageable, servidores.getTotalElements());
+    }
     
 
+    private Optional<EnderecoFuncionalResponse> mapToEnderecoFuncional(ServidorEfetivo servidor) {
+        List<Lotacao> lotacoes = lotacaoRepository.findByPessoaId(servidor.getId());
+    
+        return lotacoes.stream()
+            .findFirst()
+            .flatMap(lotacao -> {
+                Unidade unidade = lotacao.getUnidade();
+                return unidade.getUnidadeEnderecos().stream()
+                    .findFirst()
+                    .map(unidadeEndereco -> {
+                        Endereco endereco = unidadeEndereco.getEndereco();
+                        return new EnderecoFuncionalResponse(
+                            servidor.getNome(),
+                            unidade.getNome(),
+                            endereco.getLogradouro(),
+                            endereco.getNumero(),
+                            endereco.getBairro(),
+                            endereco.getCidade().getNome(),
+                            endereco.getCidade().getUf()
+                        );
+                    });
+            });
+    }  
     
 }

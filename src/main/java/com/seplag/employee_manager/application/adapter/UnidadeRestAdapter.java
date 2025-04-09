@@ -30,7 +30,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/unidades")
-@Tag(name = "Unidade", description = "Endpoints para gerenciamento de unidades")
+@Tag(name = "Unidades", description = "Endpoints para gerenciamento de unidades")
 public class UnidadeRestAdapter {
 
     private final UnidadeService unidadeService;
