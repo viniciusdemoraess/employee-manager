@@ -8,6 +8,8 @@
 
 **Cargo:** DESENVOLVEDOR JAVA (BACK-END)
 
+**Inscrição:** 9709
+
 ---
 
 ## 🧾 Sumário
@@ -46,6 +48,8 @@ Este projeto consiste em uma API RESTful desenvolvida para gerenciar dados de se
 
 ## 🚀 Como Executar o Projeto
 
+**Obs:** Docker e docker-compose devem estar instalados previamente.
+
 ### 1. Clone o repositório:
 ```bash
 
@@ -83,6 +87,11 @@ http://localhost:8080/employee-manager/v0.0.1/swagger-ui/index.html
 ```
 
 **Obs: Caso você utilize outra ferramenta para fazer as requisições como o POSTMAN, o endereço base fica: `http://localhost:8080/employee-manager/v0.0.1/`**
+
+**Exemplo:**
+
+https://github.com/user-attachments/assets/cc5922a3-7f47-4183-a74b-60ab35b23aca
+
 
 ## 🔐 Autenticação
 
