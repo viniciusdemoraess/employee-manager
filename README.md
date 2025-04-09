@@ -16,7 +16,7 @@
 - [📦 Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
 - [🔐 Autenticação](#-autenticação)
-- [📁 Endpoints e Funcionalidades](#endpoints-e-funcionalidades-requisitos-específicos)
+- [📁 Endpoints e Funcionalidades](#-endpoints-e-funcionalidades-requisitos-específicos)
 - [🗃️ Banco de Dados](#-banco-de-dados)
 - [🧪 Como Testar](#-como-testar)
 - [📌 Observações Importantes](#-observações-importantes-sobre-os-pré-requisitos)
@@ -148,6 +148,7 @@ Nome, idade, unidade de lotação e link da fotografia
 
 
 ## 🗃️ Banco de Dados
+
 O banco de dados PostgreSQL é iniciado em container Docker. As entidades estão de acordo com o diagrama fornecido e o schema é gerado automaticamente via JPA.
 
 ![image](https://github.com/user-attachments/assets/b9bc54e0-52f4-485e-bceb-51beae750e4e)
