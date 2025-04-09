@@ -21,4 +21,6 @@ public class LotacaoResponse {
 
     private String portaria;
 
+    private String nomeUnidade;
+
    }
