@@ -60,6 +60,12 @@ cd employee-manager
 docker-compose up --build
 ```
 
+**Para Docker mais recente:**
+
+```bash
+docker compose up --build
+```
+
 Esse comando irá iniciar:
 
 - O banco de dados PostgreSQL.
