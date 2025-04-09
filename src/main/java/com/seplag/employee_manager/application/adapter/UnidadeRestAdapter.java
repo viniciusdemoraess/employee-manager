@@ -41,7 +41,7 @@ public class UnidadeRestAdapter {
      * @param pageable Parâmetros de paginação.
      * @return Página contendo as unidades.
      */
-    @Operation(summary = "Listar unidades", description = "Retorna uma lista paginada de unidades", tags = "Unidade")
+    @Operation(summary = "Listar unidades", description = "Retorna uma lista paginada de unidades", tags = "Unidades")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Lista de unidades retornada com sucesso")
     })
@@ -58,7 +58,7 @@ public class UnidadeRestAdapter {
      * @param id ID da unidade.
      * @return Unidade encontrada.
      */
-    @Operation(summary = "Buscar unidade por ID", description = "Retorna uma unidade específica pelo ID", tags = "Unidade")
+    @Operation(summary = "Buscar unidade por ID", description = "Retorna uma unidade específica pelo ID", tags = "Unidades")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Unidade encontrada com sucesso"),
         @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
@@ -74,7 +74,7 @@ public class UnidadeRestAdapter {
      * @param unidade Dados da unidade a ser criada.
      * @return Unidade criada.
      */
-    @Operation(summary = "Criar unidade", description = "Cria uma nova unidade", tags = "Unidade")
+    @Operation(summary = "Criar unidade", description = "Cria uma nova unidade", tags = "Unidades")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "201", 
@@ -95,7 +95,7 @@ public class UnidadeRestAdapter {
      * @param unidade Dados atualizados da unidade.
      * @return Unidade atualizada.
      */
-    @Operation(summary = "Atualizar unidade", description = "Atualiza uma unidade existente", tags = "Unidade")
+    @Operation(summary = "Atualizar unidade", description = "Atualiza uma unidade existente", tags = "Unidades")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Unidade atualizada com sucesso"),
         @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
@@ -111,7 +111,7 @@ public class UnidadeRestAdapter {
      *
      * @param id ID da unidade a ser removida.
      */
-    @Operation(summary = "Deletar unidade", description = "Remove uma unidade pelo ID", tags = "Unidade")
+    @Operation(summary = "Deletar unidade", description = "Remove uma unidade pelo ID", tags = "Unidades")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Unidade removida com sucesso"),
         @ApiResponse(responseCode = "404", description = "Unidade não encontrada")
