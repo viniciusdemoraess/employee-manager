@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.seplag.employee_manager.application.exception.InvalidTokenException;
 import com.seplag.employee_manager.infrastructure.dto.ErrorResponse;
 
 import io.swagger.v3.oas.annotations.Hidden;
@@ -66,6 +67,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleRuntime(RuntimeException ex, HttpServletRequest request) {
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Erro inesperado", ex.getMessage(), request.getRequestURI());
     }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidToken(InvalidTokenException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, "Token Inválido", ex.getMessage(), request.getRequestURI());
+    }
+
 
     private ResponseEntity<ErrorResponse> buildResponse(HttpStatus status, String error, String message, String path) {
         ErrorResponse response = new ErrorResponse(
