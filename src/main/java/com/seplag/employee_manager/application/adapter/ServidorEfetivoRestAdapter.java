@@ -106,7 +106,7 @@ public class ServidorEfetivoRestAdapter {
         @ApiResponse(responseCode = "200", description = "Lista de endereços funcionais retornada com sucesso."),
         @ApiResponse(responseCode = "404", description = "Nenhum endereço funcional encontrado para esse nome.")
     })
-    @GetMapping("/endereco-funcional")
+    @GetMapping("/enderecos-funcionais")
     public ResponseEntity<Page<EnderecoFuncionalResponse>> buscarEnderecoFuncional(
         @RequestParam String nome,
         @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size
