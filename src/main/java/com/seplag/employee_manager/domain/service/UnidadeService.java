@@ -69,13 +69,14 @@ public class UnidadeService {
     public UnidadeResponse createUnit(UnidadeRequest unidadeRequest) {
 
         Unidade unidade = mapper.toEntity(unidadeRequest);
-        Cidade cidade = cidadeMapper.toEntity(unidadeRequest.cidade());
+        
+        Cidade cidade = salvarCidade(unidadeRequest.cidade());
         cidade = cidadeRepository.save(cidade);
 
         Endereco endereco = new Endereco(null, unidadeRequest.tipoLogradouro(), unidadeRequest.logradouro(),
                         unidadeRequest.numero(), unidadeRequest.bairro(), cidade, null);
-
         endereco = enderecoRepository.save(endereco);
+
         unidade.adicionarEndereco(endereco);
         Unidade unidadeSalva = unidadeRepository.save(unidade);
 
@@ -169,7 +170,8 @@ public class UnidadeService {
                 ),
                 lotacao.getDataLotacao(),
                 lotacao.getDataRemocao(),
-                lotacao.getPortaria()
+                lotacao.getPortaria(),
+                lotacao.getUnidade().getNome()
             ))
             .toList();
 

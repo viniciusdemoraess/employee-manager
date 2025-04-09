@@ -1,9 +1,8 @@
 package com.seplag.employee_manager.infrastructure.auth;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import com.seplag.employee_manager.application.exception.InvalidTokenException;
 import com.seplag.employee_manager.application.exception.ResourceNotFoundException;
 import com.seplag.employee_manager.application.io.LoginRequest;
 import com.seplag.employee_manager.application.io.LoginResponse;
@@ -40,7 +39,12 @@ public class AuthenticationService {
 
     public LoginResponse refreshToken(String refreshToken) {
         if (!jwtService.isTokenValid(refreshToken)) {
-            throw new RuntimeException("Refresh token inválido ou expirado.");
+            throw new InvalidTokenException("Refresh token inválido ou expirado.");
+        }
+
+        String type = jwtService.extractTokenType(refreshToken);
+        if (!"refresh".equals(type)) {
+            throw new InvalidTokenException("O token fornecido não é um refresh token.");
         }
 
         String email = jwtService.extractUsername(refreshToken);
