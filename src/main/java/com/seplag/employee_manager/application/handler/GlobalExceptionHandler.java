@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.seplag.employee_manager.application.exception.BusinessException;
 import com.seplag.employee_manager.application.exception.InvalidTokenException;
 import com.seplag.employee_manager.infrastructure.dto.ErrorResponse;
 
@@ -73,8 +74,13 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.UNAUTHORIZED, "Token Inválido", ex.getMessage(), request.getRequestURI());
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), ex.getMessage(), request.getRequestURI());
+    }
 
-    private ResponseEntity<ErrorResponse> buildResponse(HttpStatus status, String error, String message, String path) {
+
+        private ResponseEntity<ErrorResponse> buildResponse(HttpStatus status, String error, String message, String path) {
         ErrorResponse response = new ErrorResponse(
                 LocalDateTime.now(),
                 status.value(),
