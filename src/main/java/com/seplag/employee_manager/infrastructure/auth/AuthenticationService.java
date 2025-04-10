@@ -1,5 +1,7 @@
 package com.seplag.employee_manager.infrastructure.auth;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import com.seplag.employee_manager.application.exception.InvalidTokenException;
@@ -19,11 +21,21 @@ public class AuthenticationService {
 
     private final UserRepository userRepository;
     
+    private final AuthenticationManager authenticationManager;
+
 
     public LoginResponse authenticate(final LoginRequest input) {
 
         final var user = this.userRepository.findByEmail(input.getEmail())
-            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+            .orElseThrow(() -> new RuntimeException("Usuário e/ou senha Incorretos!"));
+
+
+        this.authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+              input.getEmail(),
+                input.getPassword()
+            )
+        );
 
         final String jwtToken = this.jwtService.generateToken(user);
 

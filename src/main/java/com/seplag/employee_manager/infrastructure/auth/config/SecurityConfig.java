@@ -1,7 +1,6 @@
 package com.seplag.employee_manager.infrastructure.auth.config;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seplag.employee_manager.application.filter.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
@@ -17,8 +16,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -47,12 +44,6 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    private final ObjectMapper objectMapper;
-
-    private final UserDetailsService userDetailsService;
-
-    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {

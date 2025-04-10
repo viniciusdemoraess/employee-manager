@@ -34,7 +34,7 @@ public class DataInitializer implements CommandLineRunner  {
             User user = new User();
             user.setName("admin");
             user.setEmail("admin@admin.com");
-            user.setPassword("$2y$10$1PdQqJHck/djP2h.jiCkCuVMLkMbeeE7gSJPcCazt7V8Tcy40.ldS");
+            user.setPassword("$2a$10$KyZ4xi.a5UwK.BhfutUT8OW4xZNq00HlGNw1Z0FZ6ta7ZM5vjkNWW");
             user.setEnabled(true);
             user.setPerfil(perfil);
             userRepository.save(user);
