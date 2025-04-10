@@ -6,6 +6,7 @@ COPY . .
 
 COPY wait-for-postgres.sh /wait-for-postgres.sh
 
+RUN sed -i 's/\r$//' /wait-for-postgres.sh
 RUN chmod +x /wait-for-postgres.sh
 
 RUN chmod +x mvnw
@@ -19,6 +20,8 @@ WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 COPY --from=builder /wait-for-postgres.sh /wait-for-postgres.sh
+
+RUN sed -i 's/\r$//' /wait-for-postgres.sh
 RUN chmod +x /wait-for-postgres.sh
 
 EXPOSE 8080
